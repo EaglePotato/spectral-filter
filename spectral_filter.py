@@ -6,7 +6,7 @@ import time
 # USER PARAMETERS
 # ======================================================
 
-SAMPLE_RATE = 48000
+SAMPLE_RATE = 44100
 BLOCK_SIZE  = 1024          # buffer size
 FFT_SIZE    = 1024            # keep same as block size for clarity
 
@@ -78,7 +78,12 @@ def audio_callback(indata, outdata, frames, time_info, status):
         # START YOUR CODE HERE #
         ########################
 
-        # Decide whether this frequency survives
+       # Decide whether this frequency survives
+
+        if freq >= LOW_CUT and freq <= HIGH_CUT:
+            X_filtered[f] = X[f]
+
+        else: X_filtered[f] = 0
 
         ########################
         # END YOUR CODE HERE #
