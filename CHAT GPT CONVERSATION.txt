@@ -1,0 +1,96 @@
+CHAT GPT CONVERSATION
+
+Nojus:
+
+I am working on a programming assignment in python - it is an incomplete code of a spectral filter - it includes getting raw audio from the chosen microphone, and then using Fast Fourier Transform (FFT) to convert that audio into frequency domain. 
+
+My part is to enact a band filter on those frequencies, to filter out frequencies that are below LOW_PASS and above HIGH_PASS filter values. 
+
+Here is the main goal of the assignment: Check if freq lies between LOW CUT and HIGH CUT • If yes, copy X[f] into X_filtered[f] • Otherwise, assign zero What could be meant by the second point "If yes, copy X[f] into X_filtered[f]" ?
+
+----
+
+
+ChatGPT:
+
+In this context, **`X[f]`** represents the FFT result at frequency bin `f`, and **`X_filtered[f]`** is a new array that will hold the filtered spectrum.
+
+So the instruction:
+
+> **“If yes, copy X[f] into X_filtered[f]”**
+
+means:
+
+👉 **Keep the FFT coefficient at that frequency unchanged** if it lies within the allowed band.
+
+More concretely:
+
+* After you take the FFT of the audio signal, you get an array of **complex numbers**:
+
+  ```python
+  X = fft(audio_signal)
+  ```
+* Each element `X[f] corresponds to a specific frequency bin`
+* You create a new array (same size):
+
+  ```python
+  X_filtered = np.zeros_like(X)
+  ```
+* For each frequency bin:
+
+  * If the frequency is between `LOW_CUT` and `HIGH_CUT`, you **preserve** that FFT coefficient:
+
+    ```python
+    X_filtered[f] = X[f]
+    ```
+  * Otherwise, you **remove it** by setting it to zero:
+
+    ```python
+    X_filtered[f] = 0
+    ```
+
+(ChatGPT listed more excess info but I only used the info until here)
+
+
+----
+
+
+Nojus:
+
+cannot push the code to git because I renamed the file
+
+
+
+----
+
+
+chatGPT:
+Case 1: Git sees the rename but it’s not committed yet (most common)
+
+Check status:
+
+git status
+
+
+You’ll probably see something like:
+
+deleted:    old_name.py
+new file:   new_name.py
+
+Fix
+
+Stage both changes:
+
+git add old_name.py new_name.py
+
+
+Then commit:
+
+git commit -m "Rename old_name.py to new_name.py"
+git push
+
+
+Git will automatically recognize this as a rename.
+
+(ChatGPT listed more cases, but the first case applied to me and worked as a solution)
+
